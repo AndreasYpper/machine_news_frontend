@@ -15,14 +15,6 @@ const machine = reactive({
 async function getMachineStatus(id) {
   const title = await axios.get(process.env.VUE_APP_API_URL + '/machine_status/' + id)
   return title.data.title
-    // .then((response) => {
-    //   return response.data.title
-    // })
-    // .catch((error) => {
-    //   if (error) {
-    //     return 0
-    //   }
-    // })
 }
 
 async function setMachine(id, name, semi_service, full_service, network_address, machine_status_id, details) {

@@ -14,7 +14,7 @@
 
     <!-- Create machine modal -->
     <transition name="create-modal" appear>
-    <div class="create-modal" v-if="create_machine">
+    <div class="create-modal" v-if="get_modal_status('create_machine')">
       <div class="modal-backdrop" @click="closeCreateModal()" />
       <div class="modal-dialog">
         <div class="modal-header">
@@ -27,7 +27,7 @@
     </div>
     </transition>
     <transition name="create-modal" appear>
-    <div class="create-modal" v-if="create_status">
+    <div class="create-modal" v-if="get_modal_status('machine_status')">
       <div class="modal-backdrop" @click="closeCreateModal()" />
       <div class="modal-dialog">
         <div class="modal-header">
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import stateModals from '@/modules/modals'
 import CreateMachine from '@/components/CreateMachine'
 import CreateStatus from '@/components/CreateStatus'
 import { ref } from 'vue'
@@ -52,29 +53,34 @@ export default {
     CreateStatus
   },
   setup() {
+    const { set_modal, get_modal } = stateModals
+
     const create_machine = ref(false)
     const create_status = ref(false)
 
     function openCreateModal(modal) {
       if(modal === 'machine') {
-        create_machine.value = true
-        create_status.value = false
+        set_modal('create_machine', true)
       }
       else if(modal === 'status') {
-        create_machine.value = false
-        create_status.value = true
+        set_modal('machine_status', true)
       }
     }
 
+    function get_modal_status(name) {
+      return get_modal(name)
+    }
+
     function closeCreateModal() {
-      create_machine.value = false
-      create_status.value = false
+      set_modal('create_machine', false)
+      set_modal('machine_status', false)
     }
 
     return {
       create_machine,
       create_status,
       openCreateModal,
+      get_modal_status,
       closeCreateModal
     }
   }

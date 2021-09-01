@@ -24,11 +24,12 @@
 </template>
 
 <script>
-import { reactive, getCurrentInstance } from "vue";
+import stateModals from '@/modules/modals'
+import { reactive } from "vue";
 import axios from "axios";
 export default {
   setup() {
-    const instance = getCurrentInstance();
+    const { set_modal } = stateModals
     const form = reactive({
       title: "",
     });
@@ -52,7 +53,7 @@ export default {
           .post(process.env.VUE_APP_API_URL + "machine_statuses", form)
           .then((response) => {
             if (response.data.title == form.title) {
-              instance.parent.setupState.create_status = false;
+              set_modal('machine_status', false)
             }
           });
       }
