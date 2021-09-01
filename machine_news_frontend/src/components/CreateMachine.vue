@@ -70,14 +70,15 @@
 </template>
 
 <script>
-import { reactive, getCurrentInstance, onMounted } from "vue";
+import stateModals from '@/modules/modals'
+import { reactive, onMounted } from "vue";
 import axios from "axios";
 export default {
   setup() {
+    const { set_modal } = stateModals
     onMounted(() => {
       getStatuses();
     });
-    const instance = getCurrentInstance();
     const statuses = reactive({
       statuses: {},
     });
@@ -123,7 +124,7 @@ export default {
           .post(process.env.VUE_APP_API_URL + "machines", form)
           .then((response) => {
             if (response.data.name == form.name) {
-              console.log(instance.parent.create_machine);
+              set_modal('create_machine', false)
             }
           });
       }

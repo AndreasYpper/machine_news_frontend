@@ -34,6 +34,7 @@
 import axios from "axios";
 import { ref } from "vue";
 import stateMachine from "@/modules/machine";
+// import stateMachines from "@/modules/machines";
 import MachineItem from "@/components/MachineItem";
 import MachineDetails from "@/components/MachineDetails";
 import MachineDetailsPosts from '@/components/MachineDetailsPosts'
@@ -45,6 +46,7 @@ export default {
   },
   setup() {
     const { setMachine, getMachine, resetMachine } = stateMachine;
+    // const { get_machines } = stateMachines
     const machines = ref([]);
     const show_details = ref(false);
     const machine = getMachine();
@@ -165,7 +167,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: auto;
-  margin-top: 100px;
+  margin-top: 80px;
   background-color: #fefefe;
   border-radius: 10px;
 }
